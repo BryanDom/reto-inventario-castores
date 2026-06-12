@@ -22,8 +22,14 @@ public class HistoricoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (!usuarioEsAdministrador(request)) {
+        Usuario usuario = obtenerUsuario(request);
+        if (usuario == null) {
             response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        if (usuario.getIdRol() != 1) {
+            response.sendRedirect(request.getContextPath() + "/salida");
             return;
         }
 
@@ -52,17 +58,12 @@ public class HistoricoServlet extends HttpServlet {
         }
     }
 
-    private boolean usuarioEsAdministrador(HttpServletRequest request) {
+    private Usuario obtenerUsuario(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return false;
+            return null;
         }
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        if (usuario == null) {
-            return false;
-        }
-
-        return usuario.getIdRol() == 1;
+        return (Usuario) session.getAttribute("usuario");
     }
 }

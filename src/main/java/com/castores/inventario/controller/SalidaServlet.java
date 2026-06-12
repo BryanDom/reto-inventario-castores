@@ -24,8 +24,14 @@ public class SalidaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (!usuarioEsSalida(request)) {
+        Usuario usuario = obtenerUsuario(request);
+        if (usuario == null) {
             response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        if (usuario.getIdRol() != 2) {
+            response.sendRedirect(request.getContextPath() + "/inventario");
             return;
         }
 
@@ -38,8 +44,13 @@ public class SalidaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Usuario usuario = obtenerUsuario(request);
-        if (usuario == null || usuario.getIdRol() != 2) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "No tienes permisos para registrar salidas.");
+        if (usuario == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        if (usuario.getIdRol() != 2) {
+            response.sendRedirect(request.getContextPath() + "/inventario");
             return;
         }
 
@@ -88,11 +99,6 @@ public class SalidaServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("El parametro " + parametro + " debe ser numerico.");
         }
-    }
-
-    private boolean usuarioEsSalida(HttpServletRequest request) {
-        Usuario usuario = obtenerUsuario(request);
-        return usuario != null && usuario.getIdRol() == 2;
     }
 
     private Usuario obtenerUsuario(HttpServletRequest request) {
