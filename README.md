@@ -23,19 +23,25 @@ Sistema web de inventario desarrollado en Java MVC con Maven, JSP, Servlets, MyS
    CREATE DATABASE inventario_castores;
    ```
 
-3. Ejecutar el script de creacion de tablas y datos iniciales:
+3. Ejecutar el script de creacion de tablas:
 
    ```bash
    mysql -u root -p inventario_castores < SCRIPTS/creacion_tablas.sql
    ```
 
-4. En IntelliJ IDEA, configurar Apache Tomcat 9:
+4. Ejecutar el script de datos iniciales:
+
+   ```bash
+   mysql -u root -p inventario_castores < SCRIPTS/datos_iniciales.sql
+   ```
+
+5. En IntelliJ IDEA, configurar Apache Tomcat 9:
 
    ```text
    File > Settings > Application Servers > agregar Tomcat 9
    ```
 
-5. Configurar el despliegue de la aplicacion:
+6. Configurar el despliegue de la aplicacion:
 
    ```text
    Run > Edit Configurations > Tomcat Local > pestaña Deployment
@@ -53,7 +59,7 @@ Sistema web de inventario desarrollado en Java MVC con Maven, JSP, Servlets, MyS
    Application context: /inventario-castores
    ```
 
-6. Dar Run y abrir:
+7. Dar Run y abrir:
 
    [http://localhost:8080/inventario-castores](http://localhost:8080/inventario-castores)
 
