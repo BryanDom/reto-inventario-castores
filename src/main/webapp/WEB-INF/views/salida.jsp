@@ -217,6 +217,7 @@
                 <a class="nav-link" href="<%= request.getContextPath() %>/inventario">Inventario</a>
                 <a class="nav-link" href="<%= request.getContextPath() %>/historico">Historial</a>
             <% } else if (usuario != null && usuario.getIdRol() == 2) { %>
+                <a class="nav-link" href="<%= request.getContextPath() %>/inventario">Inventario</a>
                 <a class="nav-link" href="<%= request.getContextPath() %>/salida">Salida</a>
             <% } %>
             <form action="<%= request.getContextPath() %>/logout" method="post" class="logout-form">

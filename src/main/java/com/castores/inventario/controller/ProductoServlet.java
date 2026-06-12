@@ -23,7 +23,7 @@ public class ProductoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (!usuarioEsAdministrador(request)) {
+        if (!usuarioPuedeVerInventario(request)) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
@@ -110,16 +110,21 @@ public class ProductoServlet extends HttpServlet {
     }
 
     private boolean usuarioEsAdministrador(HttpServletRequest request) {
+        Usuario usuario = obtenerUsuario(request);
+        return usuario != null && usuario.getIdRol() == 1;
+    }
+
+    private boolean usuarioPuedeVerInventario(HttpServletRequest request) {
+        Usuario usuario = obtenerUsuario(request);
+        return usuario != null && (usuario.getIdRol() == 1 || usuario.getIdRol() == 2);
+    }
+
+    private Usuario obtenerUsuario(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return false;
+            return null;
         }
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        if (usuario == null) {
-            return false;
-        }
-
-        return usuario.getIdRol() == 1;
+        return (Usuario) session.getAttribute("usuario");
     }
 }
