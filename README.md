@@ -71,7 +71,7 @@ Sistema web de inventario desarrollado en Java MVC con Maven, JSP, Servlets, MyS
 ## Modulos del sistema
 
 - Login con autenticacion por rol.
-- Inventario: agregar productos, aumentar existencias, dar de baja y reactivar productos. Disponible solo para Administrador.
+- Inventario: consulta de productos disponible para Administrador y Almacenista. Las acciones de agregar productos, aumentar existencias, dar de baja y reactivar productos estan disponibles solo para Administrador.
 - Salida de productos: registrar salida y restar inventario validando existencias disponibles. Disponible solo para Almacenista.
 - Historial de movimientos con filtro por tipo de movimiento. Disponible solo para Administrador.
 
